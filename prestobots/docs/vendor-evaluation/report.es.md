@@ -128,21 +128,31 @@ se reservó.
 
 Estamos construyendo nuestra propia plataforma de pruebas sobre piezas de código abierto probadas
 (ver [04-e2e-testing-strategy.md](../04-e2e-testing-strategy.md) y
-[06-mvp-scope.md](../06-mvp-scope.md)):
+[06-mvp-scope.md](../06-mvp-scope.md)). Estado al 2026-11-26 (detalle en
+[build-vs-buy.es.md](build-vs-buy.es.md)):
+
+**Ya construido:**
 
 - Un runner que **actúa como paciente** y envía mensajes al webhook real en **salud-stage** (nunca
-  en producción).
+  en producción). Hoy corre contra un bot de demostración; la conexión a salud-stage está lista y
+  espera los accesos pedidos a desarrollo (ver [07-developer-requests.md](../07-developer-requests.md)).
 - **Lee las respuestas del bot** en Firestore, con acceso de solo lectura.
-- **Verifica el turno** en el sistema de pruebas de Macena.
 - Un **juez con IA (Claude)** evalúa las respuestas en español, pero nunca puede convertir una
   verificación fallida en aprobada.
-- **Los casos de prueba se proponen automáticamente** a partir del agente de Dialogflow CX y de los
+- **Los casos de prueba se proponen automáticamente** recorriendo los menús del bot y leyendo los
   archivos de los Flows, y los aprueba un administrador.
 - Las fallas se convierten en **tarjetas de Jira**.
 
+**Planificado, todavía sin implementar:**
+
+- **Verificar el turno**, en el sistema de pruebas de Macena o en la base de turnos (falta acordar
+  con desarrollo cuál).
+- **Proponer casos también a partir del agente de Dialogflow CX**, cuando desarrollo nos pase el
+  archivo exportado.
+
 La **decisión de aprobado/fallado se basa en verificaciones de sí o no** (¿llegó la respuesta?,
-¿están los botones correctos?, ¿existe el turno?). La IA solo evalúa lo que no se puede verificar
-de forma exacta.
+¿están los botones correctos? y, cuando esté el chequeo de turnos, ¿existe el turno?). La IA solo
+evalúa lo que no se puede verificar de forma exacta.
 
 ---
 

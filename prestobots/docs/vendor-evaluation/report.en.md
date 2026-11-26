@@ -120,20 +120,32 @@ happened.
 
 We're building our own testing platform on proven open-source pieces
 (see [04-e2e-testing-strategy.md](../04-e2e-testing-strategy.md) and
-[06-mvp-scope.md](../06-mvp-scope.md)):
+[06-mvp-scope.md](../06-mvp-scope.md)). Status as of 2026-11-26 (details, in Spanish, in
+[build-vs-buy.es.md](build-vs-buy.es.md)):
+
+**Built:**
 
 - A runner that **plays the patient** by sending messages to the real webhook on **salud-stage**
-  (never production).
+  (never production). Today it runs against a demo bot; the salud-stage connection is ready and
+  waits for the access requested from the developers (see
+  [07-developer-requests.md](../07-developer-requests.md)).
 - **Reads the bot's replies** from Firestore with read-only access.
-- **Checks the booking** in Macena's test system.
 - An **AI judge (Claude)** grades the Spanish replies, but it can never turn a failed check into a
   pass.
-- **Test cases are proposed automatically** from the Dialogflow CX agent and the Flow files, and
-  approved by an admin.
+- **Test cases are proposed automatically** by exploring the bot's menus and reading the Flow
+  files, and approved by an admin.
 - Failures become **Jira cards**.
 
+**Planned, not built yet:**
+
+- **Checking the booking**, in Macena's test system or in the appointments data (which one is still
+  to be agreed with the developers).
+- **Proposing test cases from the Dialogflow CX agent** as well, once the developers send the
+  exported file.
+
 The **pass/fail decision rests on yes/no checks** (did the reply arrive, are the right buttons
-there, does the appointment exist). The AI only grades what can't be checked exactly.
+there and, once the booking check exists, does the appointment exist). The AI only grades what
+can't be checked exactly.
 
 ---
 

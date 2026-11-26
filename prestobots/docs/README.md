@@ -10,6 +10,7 @@ the code, these docs follow **the code** and flag the drift.
 | [05-chatbot-testing-simple.md](05-chatbot-testing-simple.md) | chatbot (v3 Salud) | Plain-language version of the chatbot testing plan for non-technical readers: dictionary, how tests adapt to changes, automatic test-case discovery and IDs, the admin role. |
 | [06-mvp-scope.md](06-mvp-scope.md) | chatbot (v3 Salud) | **MVP scope** of the Chatbot Testing Platform: create test cases (AI + natural language), run them from the web page, detailed reports, Jira cards. Out of scope, done-criteria, open questions. |
 | [07-developer-requests.md](07-developer-requests.md) | chatbot (v3 Salud) | **What to ask the developers** so the platform can test the real chatbot: what already exists (just access) vs. what would be new work, plus a ready-to-send message. |
+| [08-proceso-de-desarrollo.es.md](08-proceso-de-desarrollo.es.md) | `app/` | **Executive summary (Spanish)** of how the platform was conceived and built: steps, spec → plan → tasks, MVP status and next steps. |
 | [../app/README.md](../app/README.md) | `app/` | The **Chatbot Testing Platform** itself (iteration 1): how to start it, demo vs stage mode. |
 
 ## How the three relate
