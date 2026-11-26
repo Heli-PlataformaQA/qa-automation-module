@@ -37,8 +37,11 @@ describe('SessionStore (FR-6, FR-21, FR-22)', () => {
     const file = join(dir, 'secrets', 'google-session.json');
     const store = new SessionStore(file);
     store.save(SESSION);
-    expect(statSync(file).mode & 0o777).toBe(0o600);
-    expect(statSync(join(dir, 'secrets')).mode & 0o777).toBe(0o700);
+    // Windows has no Unix permission bits (Node always reports 0o666 there), so the owner-only check runs elsewhere.
+    if (process.platform !== 'win32') {
+      expect(statSync(file).mode & 0o777).toBe(0o600);
+      expect(statSync(join(dir, 'secrets')).mode & 0o777).toBe(0o700);
+    }
     expect(readdirSync(join(dir, 'secrets'))).toEqual(['google-session.json']);
     expect(store.read()).toEqual({ session: SESSION });
   });
