@@ -89,16 +89,19 @@ export class AiClient {
 
     let response;
     try {
-      response = await this.anthropic.messages.parse(
-        {
-          model: options.model,
-          max_tokens: options.maxTokens,
-          system: options.system,
-          messages: [{ role: 'user', content: options.user }],
-          output_config: { effort: options.effort, format: zodOutputFormat(options.schema) },
-        },
-        { signal: options.signal }
-      );
+      // Streamed, because the SDK refuses non-streaming requests with a large max_tokens (e.g. proposals).
+      response = await this.anthropic.messages
+        .stream(
+          {
+            model: options.model,
+            max_tokens: options.maxTokens,
+            system: options.system,
+            messages: [{ role: 'user', content: options.user }],
+            output_config: { effort: options.effort, format: zodOutputFormat(options.schema) },
+          },
+          { signal: options.signal }
+        )
+        .finalMessage();
     } catch (error) {
       throw toPlainError(error);
     }
