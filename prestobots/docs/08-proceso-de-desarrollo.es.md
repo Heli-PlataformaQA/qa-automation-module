@@ -1,7 +1,7 @@
 # Cómo se pensó y se construyó la Chatbot Testing Platform
 
 > Resumen ejecutivo del proceso de desarrollo, del primer análisis al MVP y los próximos pasos.
-> Fecha: 2026-11-26. Basado en los documentos de `docs/`, `specs/` y el estado del código en `main`.
+> Fecha: 2026-11-26.
 
 ---
 
@@ -35,13 +35,11 @@ chequeo de que el turno exista.
 
 ## 2. La historia, paso a paso
 
-### Paso 1 — Entender el sistema (16/11)
+### Paso 1 — Entender el sistema
 
-Leímos completos los tres repos: la landing de Cauce, el bot legacy (`prestobots-master`) y el bot
-actual (`prestobotsv3`, producto Salud). De ahí salieron un mapa de cómo se relacionan, un glosario
-(turno, obra social, gestión…) y un hallazgo clave: **el webhook del bot solo responde "recibido"**.
-La respuesta real del bot queda guardada en Firestore y el turno se crea en Macena. Cualquier prueba
-seria tiene que mirar ahí, no en la respuesta HTTP.
+**El webhook del bot solo responde "recibido".** La respuesta real del bot queda guardada en
+Firestore y el turno se crea en Macena. Cualquier prueba seria tiene que mirar ahí, no en la
+respuesta HTTP.
 
 También aparecieron hallazgos de seguridad en los repos de clientes, que se documentaron para
 tratarlos en privado con el líder técnico.
@@ -98,7 +96,7 @@ Con el alcance claro, la plataforma se construyó en cuatro iteraciones, cada un
 Construir primero contra un **bot de demostración** permitió avanzar sin depender de los accesos de
 desarrollo y probar todo sin costo ni riesgo.
 
-### Paso 5 — Validar la decisión de construir (19/11 y 26/11)
+### Paso 5 — Validar la decisión de construir
 
 Antes de seguir invirtiendo, se evaluaron tres herramientas comerciales: **Cekura, TestSprite y
 Momentic**. Conclusión: son buenas en lo suyo, pero ninguna puede verificar que el turno exista sin
@@ -110,7 +108,7 @@ El reporte de plataforma propia vs. herramientas comerciales recomienda **seguir
 propia**, con un criterio explícito para revisar la decisión: si el chequeo de turnos resulta
 imposible, volver a comparar con Cekura.
 
-### Paso 6 — Formalizar el método (23/11 en adelante)
+### Paso 6 — Formalizar el método
 
 Con cuatro iteraciones hechas y el proyecto creciendo, se pasó a un **desarrollo guiado por
 especificaciones y por tests** para que el código siga siendo confiable y otra persona pueda
@@ -124,10 +122,12 @@ tomarlo:
 - **Una carpeta por funcionalidad** en `specs/NNN-<nombre>/`, con tres documentos (ver §3).
 
 Desde entonces, cada funcionalidad nueva empieza como una spec. La **Spec 001 — acceso al bot real
-con login de Google** es la primera y, por ahora, la única hecha con este método. Surgió de un obstáculo real: desarrollo no entregó la clave de servicio para leer la base
-de stage, pero sí ya usaba una herramienta interna que lee con la cuenta de Google de cada persona.
-La spec adaptó la plataforma a eso: el admin inicia sesión con su cuenta de prestobots.com, la
-plataforma corre seis chequeos de conexión explicados en palabras simples y un botón envía un "hola"
+con login de Google** es la primera y, por ahora, la única hecha con este método.
+
+La primera necesidad que surge es leer la base de stage, para lo cual se adoptó el método de
+`cauce-herramientas`, la herramienta interna de desarrollo: leer con la cuenta de Google de cada
+persona, en lugar de una clave de servicio. Así, el admin inicia sesión con su cuenta de
+prestobots.com, ve seis chequeos de conexión explicados en palabras simples y puede mandar un "hola"
 de prueba. Va **26 de 28 tareas**; faltan la verificación final contra salud-stage y cerrarla.
 
 ---
