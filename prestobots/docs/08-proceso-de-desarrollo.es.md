@@ -209,6 +209,5 @@ productos (Turnos, bot legacy, landing).
 **Dirección a largo plazo (no adoptada):** convertir la plataforma en un producto de QA con IA
 vendible y multi-cliente. Cualquier paso en esa dirección requiere su propia spec aprobada.
 
-**Qué hace falta de otros:** respaldo del líder técnico para destrabar los accesos con el equipo de
-`prestobotsv3`, un acuerdo sobre cómo verificar turnos, y definir si alguien más participa del
-mantenimiento.
+**Qué hace falta de otros:** acompañar los puntos necesarios para la primera ejecución contra el bot
+real en stage, y acordar cómo verificar turnos.
